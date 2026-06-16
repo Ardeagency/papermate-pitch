@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Paper Mate · La alegría de hacerlo a mano — 360 Content System · ARDE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Caveat:wght@500;600;700&family=Hanken+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --blue:#173C82; --blue-2:#0F2C63; --blue-ink:#0A1E47; --blue-soft:#3E63A8;
+  --red:#E2231A; --red-deep:#B91812;
+  --cream:#F7F2E8; --cream-2:#EFE7D6; --paper:#FFFFFF;
+  --ink:#15233E; --ink-soft:#41506b;
+  --gold:#B89048; --peach:#F4DDC6; --sky:#D9E7F2; --lav:#E6E1EE;
+  --line:rgba(21,35,62,.14); --line-2:rgba(21,35,62,.08);
+  --shadow:0 30px 70px -34px rgba(10,30,71,.45);
+  --r:6px;
+  --disp:"Fraunces",serif; --body:"Hanken Grotesk",sans-serif; --hand:"Caveat",cursive;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--ink);background:var(--cream);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--blue);color:#fff}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+em{font-style:italic}
+
+.progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--red);z-index:300}
+
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;
+  padding:18px clamp(20px,5vw,64px);transition:.45s}
+nav.scrolled{background:rgba(247,242,232,.9);backdrop-filter:blur(16px);box-shadow:0 1px 0 var(--line-2);padding-top:13px;padding-bottom:13px}
+.logo{height:30px;width:auto}
+nav .right{display:flex;align-items:center;gap:30px}
+.nav-links{display:flex;gap:28px;font-weight:500;font-size:13.5px;letter-spacing:.2px}
+.nav-links a{position:relative;opacity:.72;transition:.25s}
+.nav-links a:hover{opacity:1;color:var(--blue)}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-5px;height:1.5px;width:0;background:var(--red);transition:.3s}
+.nav-links a:hover::after{width:100%}
+.byline{font-family:var(--disp);font-style:italic;font-size:14px;color:var(--blue);opacity:.8}
+@media(max-width:880px){.nav-links{display:none}}
+
+/* type */
+section{position:relative;padding:clamp(80px,12vw,150px) clamp(22px,7vw,100px)}
+.wrap{max-width:1200px;margin:0 auto}
+.eyebrow{font-weight:700;font-size:12px;letter-spacing:3.2px;text-transform:uppercase;color:var(--blue);display:inline-flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:30px;height:1.5px;background:var(--red)}
+h1,h2,h3,h4{font-family:var(--disp);font-weight:400;line-height:1.05;letter-spacing:-.5px;color:var(--ink)}
+h2{font-size:clamp(34px,5.2vw,62px);margin:22px 0;font-weight:380}
+h2 em{color:var(--blue)}
+h3{font-size:clamp(21px,2.4vw,29px);font-weight:420}
+.lead{font-size:clamp(17px,1.4vw,20px);max-width:700px;color:var(--ink-soft);font-weight:400}
+.lead b{color:var(--ink);font-weight:600}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.09s}.d2{transition-delay:.18s}.d3{transition-delay:.27s}.d4{transition-delay:.36s}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:clamp(28px,4vw,56px);
+  padding:clamp(120px,16vh,160px) clamp(22px,7vw,100px) 80px;overflow:hidden;
+  background:
+    radial-gradient(60% 50% at 88% 8%, rgba(217,231,242,.85), transparent 70%),
+    radial-gradient(55% 45% at 6% 92%, rgba(244,221,198,.7), transparent 70%),
+    radial-gradient(50% 40% at 70% 100%, rgba(230,225,238,.6), transparent 70%),
+    var(--cream)}
+.hero::before{content:"";position:absolute;inset:-10%;z-index:0;pointer-events:none;
+  background:radial-gradient(38% 38% at 22% 28%, rgba(226,35,26,.06), transparent 68%),
+            radial-gradient(44% 44% at 84% 72%, rgba(23,60,130,.08), transparent 68%);
+  animation:drift 16s ease-in-out infinite alternate}
+@keyframes drift{0%{transform:translate3d(0,0,0) scale(1)}100%{transform:translate3d(-26px,20px,0) scale(1.1)}}
+.hero-copy{position:relative;z-index:2;min-width:0}
+.hero .eyebrow{margin-bottom:26px}
+.hero h1{font-family:var(--disp);font-weight:340;font-size:clamp(40px,6.6vw,90px);line-height:1.02;letter-spacing:-1.2px;overflow-wrap:break-word}
+.hero h1 em{color:var(--blue);font-style:italic}
+.hero .sub{margin-top:30px;max-width:520px;font-size:18.5px;color:var(--ink-soft)}
+.hero .meta-line{margin-top:40px;display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--line);padding-top:22px}
+.hero .meta-line div{padding-right:30px;margin-right:30px;border-right:1px solid var(--line)}
+.hero .meta-line div:last-child{border-right:none}
+.hero .meta-line .k{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--blue-soft);font-weight:700}
+.hero .meta-line .v{font-family:var(--disp);font-size:19px;color:var(--ink)}
+.hero-visual{position:relative;justify-self:center}
+.hero-visual .frame{width:min(440px,82vw);aspect-ratio:4/5;overflow:hidden;border-radius:var(--r);box-shadow:var(--shadow);position:relative}
+.hero-visual .frame img{width:100%;height:100%;object-fit:cover}
+.hero-visual .cap{margin-top:16px;font-family:var(--disp);font-style:italic;font-size:16px;color:var(--blue);max-width:440px}
+.hero-visual .cap::before{content:"— "}
+.scrollcue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:3px;color:var(--ink-soft);opacity:.6;writing-mode:vertical-rl;display:flex;align-items:center;gap:10px}
+.scrollcue::after{content:"";width:1px;height:40px;background:var(--ink-soft)}
+@media(max-width:880px){.hero{grid-template-columns:1fr;min-height:auto}.hero-visual{margin-top:46px;justify-self:start}.scrollcue{display:none}}
+
+/* dark */
+.dark{background:linear-gradient(160deg,var(--blue-2),var(--blue-ink));color:#eaeff8}
+.dark h2,.dark h3{color:#fff}.dark h2 em{color:#cddef4}
+.dark .eyebrow{color:#9fc0ee}.dark .eyebrow::before{background:var(--red)}
+.dark .lead{color:#c4d2e8}.dark .lead b{color:#fff}
+
+/* worlds */
+.worlds{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.14);margin-top:54px;border:1px solid rgba(255,255,255,.14)}
+.world{background:var(--blue-2);padding:42px}
+.world .n{font-family:var(--disp);font-size:15px;letter-spacing:3px;color:#9fc0ee;font-weight:500}
+.world h3{margin:14px 0 14px;font-weight:380}
+.world p{color:#c4d2e8;font-size:15.5px}
+.world ul{list-style:none;margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.world ul li{font-size:12px;font-weight:500;letter-spacing:.4px;border:1px solid rgba(255,255,255,.2);padding:6px 13px;border-radius:30px;color:#dbe6f5}
+@media(max-width:760px){.worlds{grid-template-columns:1fr}}
+
+/* rules */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--line);margin-top:54px;border:1px solid var(--line)}
+.rule{background:var(--paper);padding:28px 26px;transition:.3s}
+.rule:hover{background:#fbf8f1}
+.rule .num{font-family:var(--disp);font-style:italic;font-size:30px;color:var(--blue);line-height:1}
+.rule p{font-size:15px;margin-top:12px;color:var(--ink-soft)}
+
+/* spine */
+.spine{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--line);margin-top:56px;border:1px solid var(--line)}
+.step{background:var(--paper);padding:34px 28px}
+.step .k{font-size:11px;letter-spacing:2.4px;text-transform:uppercase;color:var(--red);font-weight:700}
+.step h4{font-size:21px;margin:14px 0 12px;font-weight:420}
+.step p{font-size:14px;color:var(--ink-soft)}
+.step.hl{background:var(--blue)}.step.hl .k{color:#ffd0cc}.step.hl h4{color:#fff}.step.hl p{color:#d7e2f4}
+
+/* metas */
+.metas{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:18px;margin-top:54px}
+.meta{background:var(--paper);border:1px solid var(--line);padding:34px 30px;position:relative;transition:.35s}
+.meta:hover{box-shadow:var(--shadow);transform:translateY(-5px)}
+.meta .id{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--c)}
+.meta .big{font-family:var(--disp);font-weight:340;font-size:54px;line-height:1;margin:14px 0 12px;color:var(--ink)}
+.meta .lbl{font-size:14px;color:var(--ink-soft)}
+.meta::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c)}
+
+/* master */
+.master{margin-top:54px;border:1px solid var(--line);background:var(--paper)}
+.mrow{display:grid;grid-template-columns:56px 1.5fr 2.4fr .85fr;border-bottom:1px solid var(--line);transition:.25s}
+.mrow:last-child{border-bottom:none}
+.mrow.head{background:var(--blue-ink);color:#cddef4;font-weight:600;font-size:11px;letter-spacing:2px;text-transform:uppercase}
+.mrow.head>div{padding:18px}
+.mrow:not(.head):hover{background:#faf7f0}
+.mrow>div{padding:20px 18px;border-right:1px solid var(--line-2)}
+.mrow>div:last-child{border-right:none}
+.mrow .bk{font-family:var(--disp);font-weight:380;color:var(--blue);font-size:24px;display:flex;align-items:center;justify-content:center;background:#f6f1e7}
+.mrow .pz{font-weight:600;font-size:15.5px}
+.mrow .pz small{display:block;font-weight:400;color:var(--blue-soft);font-size:12.5px;margin-top:5px;line-height:1.4}
+.mrow .ob{font-size:14px;color:var(--ink-soft)}
+.mrow .mt{display:flex;gap:6px;flex-wrap:wrap;align-items:flex-start}
+.pill{font-weight:700;font-size:10.5px;letter-spacing:.5px;color:#fff;background:var(--ink);border-radius:3px;padding:4px 8px}
+.pill.M1{background:var(--red)}.pill.M2{background:#9C2C8E}.pill.M3{background:var(--blue)}.pill.M4{background:#2E7D5B}.pill.M5{background:#3A3A66}
+@media(max-width:820px){.mrow{grid-template-columns:48px 1fr}.mrow.head{display:none}.mrow .ob,.mrow .mt{grid-column:1/3;border-right:none;padding-top:0}}
+
+/* blocks */
+.blocks{margin-top:54px;border-top:1px solid var(--line)}
+.block{border-bottom:1px solid var(--line);transition:.3s}
+.bhead{display:grid;grid-template-columns:auto 1fr auto auto;gap:26px;align-items:center;padding:30px 6px;cursor:pointer}
+.bhead .tag-b{font-family:var(--disp);font-weight:360;font-size:30px;color:var(--blue);width:54px;text-align:center}
+.bhead h3{font-size:23px;font-weight:400}
+.bhead .qe{font-size:14px;color:var(--ink-soft);margin-top:4px}
+.bhead .mt{display:flex;gap:6px}
+.bhead .chev{font-family:var(--disp);font-size:26px;color:var(--blue);transition:.35s;width:30px;text-align:center}
+.block.open{background:#fbf8f1}
+.block.open .chev{transform:rotate(45deg)}
+.bbody{max-height:0;overflow:hidden;transition:max-height .55s ease}
+.binner{padding:6px 6px 40px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px}
+.bhead .scope{display:inline-block;margin-top:9px;font-size:12px;font-weight:600;letter-spacing:.3px;color:var(--blue);background:rgba(23,60,130,.07);padding:5px 12px;border-radius:30px}
+.binner ul.tener{list-style:none;display:block}
+.binner ul.tener li{font-size:14.5px;color:var(--ink-soft);padding:9px 0;border-bottom:1px solid var(--line-2);line-height:1.55}
+.binner ul.tener li:last-child{border-bottom:none}
+.binner ul.tener li b{color:var(--ink);font-weight:600}
+.binner .col h5{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:14px;font-weight:700}
+.binner .col p{font-size:15px;color:var(--ink-soft)}
+.binner ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.binner ul li{border:1px solid var(--line);padding:7px 13px;font-size:12.5px;color:var(--ink);background:#fff;border-radius:30px}
+.binner .explain{grid-column:1/3;border-left:2px solid var(--red);padding:6px 0 6px 24px;margin-top:6px}
+.binner .explain span{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--blue);font-weight:700;display:block;margin-bottom:10px}
+.binner .explain q{font-family:var(--disp);font-style:italic;font-size:21px;color:var(--ink);line-height:1.4;quotes:'"' '"'}
+.binner ol.eps{list-style:none;counter-reset:e;margin-top:6px}
+.binner ol.eps li{counter-increment:e;font-size:14px;color:var(--ink-soft);padding:7px 0 7px 34px;position:relative;border-bottom:1px solid var(--line-2)}
+.binner ol.eps li:last-child{border-bottom:none}
+.binner ol.eps li::before{content:counter(e,decimal-leading-zero);position:absolute;left:0;top:7px;font-family:var(--disp);font-style:italic;color:var(--blue);font-size:13px}
+@media(max-width:680px){.bhead{grid-template-columns:auto 1fr auto}.bhead .mt{display:none}.binner{grid-template-columns:1fr;gap:26px}.binner .explain{grid-column:auto}}
+
+/* film */
+.film{margin-top:56px;border-left:1px solid rgba(255,255,255,.25);margin-left:6px}
+.seg{position:relative;padding:8px 0 38px 40px}
+.seg::before{content:"";position:absolute;left:-5px;top:14px;width:9px;height:9px;border-radius:50%;background:var(--red)}
+.seg .t{font-family:var(--disp);font-style:italic;font-size:15px;color:#9fc0ee}
+.seg h4{font-size:21px;margin:6px 0 12px;color:#fff;font-weight:400}
+.seg .vo{font-family:var(--disp);font-style:italic;font-size:22px;color:#eaeff8;line-height:1.4}
+.seg p{font-size:14px;color:#bcccdf;margin-top:10px}
+
+/* gallery */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:54px}
+.strip figure{overflow:hidden;aspect-ratio:3/4;position:relative;border-radius:var(--r);box-shadow:var(--shadow)}
+.strip img{width:100%;height:100%;object-fit:cover;transition:.7s cubic-bezier(.2,.7,.2,1)}
+.strip figure:hover img{transform:scale(1.05)}
+.strip figcaption{position:absolute;left:0;right:0;bottom:0;padding:16px;background:linear-gradient(transparent,rgba(10,30,71,.78));color:#fff;font-family:var(--disp);font-style:italic;font-size:15px}
+@media(max-width:760px){.strip{grid-template-columns:1fr 1fr}}
+
+/* budget */
+.budget{margin-top:54px;display:grid;grid-template-columns:1.6fr .9fr;gap:36px;align-items:start}
+.btable{border:1px solid var(--line);background:var(--paper)}
+.brow{display:grid;grid-template-columns:38px 1fr auto;gap:16px;align-items:center;padding:18px 24px;border-bottom:1px solid var(--line)}
+.brow:last-child{border-bottom:none}
+.brow .i{font-family:var(--disp);font-style:italic;color:var(--blue);font-size:16px}
+.brow .nm{font-weight:600;font-size:15px}
+.brow .nm small{display:block;font-weight:400;color:var(--ink-soft);font-size:12.5px;margin-top:3px}
+.brow .usd{font-family:var(--disp);font-weight:420;font-size:18px}
+.brow.total{background:var(--blue-ink)}.brow.total .nm{color:#fff}.brow.total .usd{color:#fff;font-size:24px}
+.bside{background:var(--blue);color:#fff;padding:38px;position:sticky;top:96px}
+.bside .big{font-family:var(--disp);font-weight:340;font-size:62px;line-height:1}
+.bside>p{font-size:14.5px;color:#d7e2f4;margin-top:8px}
+.bside .note{margin-top:26px;border-top:1px solid rgba(255,255,255,.25);padding-top:22px;font-size:13px;color:#d7e2f4}
+.bside .note b{font-family:var(--disp);font-style:italic;color:#fff;display:block;font-size:16px;margin-bottom:10px}
+.amp{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.amp span{border:1px solid rgba(255,255,255,.3);padding:5px 12px;border-radius:30px;font-size:12px}
+.under{position:relative;display:inline-block}
+.under::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform 1s .3s ease}
+.reveal.in .under::after{transform:scaleX(1)}
+@media(max-width:820px){.budget{grid-template-columns:1fr}.bside{position:static}}
+
+/* close */
+.close{text-align:center}
+.close h2{font-size:clamp(36px,6vw,76px);max-width:16ch;margin:22px auto;font-weight:340}
+.close .sig{font-family:var(--disp);font-style:italic;font-size:clamp(26px,4vw,42px);color:#cdef4;color:#bcd9f4;margin-top:40px}
+
+/* footer */
+footer{background:var(--blue-ink);color:#aebfdc;padding:64px clamp(22px,7vw,100px) 44px;text-align:center}
+footer .logo{height:30px;margin:0 auto 18px;filter:brightness(0) invert(1);opacity:.95}
+footer p{font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:#dbe6f5}
+footer small{display:block;margin-top:20px;font-size:12px;opacity:.55;letter-spacing:.5px}
+footer .ar{font-family:var(--disp);font-style:italic;color:#9fc0ee;font-size:15px;margin-top:6px}
+
+/* ===== DINAMISMO ===== */
+.note{font-family:var(--hand);font-weight:600;color:var(--red);line-height:1;display:inline-block}
+.note.blue{color:var(--blue)}
+.note.lg{font-size:clamp(26px,3vw,38px)}
+.note.rot{transform:rotate(-4deg)}
+.hero .note{position:absolute;z-index:3;right:clamp(10px,4vw,40px);top:14%;transform:rotate(-8deg);font-size:clamp(20px,2.2vw,30px);color:var(--red)}
+@media(max-width:880px){.hero .note{position:static;display:block;margin:4px 0 0;transform:rotate(-3deg)}}
+.h-note{display:inline-block;font-family:var(--hand);color:var(--red);font-size:.62em;transform:rotate(-3deg);margin-left:.2em;vertical-align:middle}
+.dark .h-note,.dark .note{color:#ffd0cc}
+
+/* marquee */
+.marquee{background:var(--blue-ink);color:#fff;overflow:hidden;white-space:nowrap;padding:20px 0;display:flex;border-block:1px solid rgba(255,255,255,.08)}
+.marquee .track{display:inline-flex;align-items:center;animation:scroll 32s linear infinite;flex-shrink:0}
+.marquee:hover .track{animation-play-state:paused}
+.marquee .track>span{font-family:var(--disp);font-style:italic;font-size:clamp(19px,2.1vw,29px);padding:0 30px;opacity:.94}
+.marquee .track .st{color:var(--red);font-size:.7em;padding:0 4px;font-style:normal}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* eyebrow line draw on reveal */
+.reveal .eyebrow::before{width:0;transition:width .7s .15s ease}
+.reveal.in .eyebrow::before{width:30px}
+
+/* hero image float + zoom */
+.hero-visual .frame{animation:floaty 7s ease-in-out infinite}
+.hero-visual .frame img{transition:transform 1.4s cubic-bezier(.2,.7,.2,1);transform:scale(1.05)}
+.hero-visual .frame:hover img{transform:scale(1.1)}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-13px)}}
+
+/* gallery reveal (sin wipe — robusto) */
+.strip figcaption{transform:translateY(10px);opacity:0;transition:.45s}
+.strip figure:hover figcaption{transform:none;opacity:1}
+
+/* micro-interactions */
+.pill{transition:transform .2s}
+.mrow:not(.head):hover .pill{transform:translateY(-1px)}
+.spine .step{transition:background .3s,transform .3s,box-shadow .3s}
+.spine .step:not(.hl):hover{transform:translateY(-5px);z-index:2;box-shadow:var(--shadow)}
+.bhead h3{transition:color .25s}.bhead:hover h3{color:var(--blue)}
+.rule{transition:background .3s,transform .3s}.rule:hover{transform:translateY(-4px)}
+.nav-links a,.byline{transition:.25s}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}.hero::before{animation:none}}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:760px){
+  section{padding:64px 20px}
+  .hero{padding:104px 20px 54px;gap:34px}
+  .hero h1{font-size:clamp(34px,8.6vw,58px);letter-spacing:-.6px}
+  .hero .sub{font-size:16.5px}
+  .hero .meta-line{flex-direction:column;gap:0;margin-top:28px}
+  .hero .meta-line div{border-right:none;border-bottom:1px solid var(--line);padding:13px 0;margin:0;width:100%}
+  .hero .meta-line div:last-child{border-bottom:none}
+  .hero-visual{width:100%}.hero-visual .frame{width:100%}
+  .hero .note{font-size:22px;top:auto;bottom:8px;right:14px}
+  h2{font-size:clamp(28px,7.6vw,40px)}
+  .lead{font-size:16.5px}
+  .worlds,.rules,.spine{margin-top:34px}
+  .marquee{padding:16px 0}.marquee .track>span{font-size:18px;padding:0 18px}
+  .metas{grid-template-columns:1fr 1fr;gap:12px;margin-top:34px}
+  .meta{padding:24px 20px}.meta .big{font-size:40px}
+  .strip{grid-template-columns:1fr 1fr;gap:10px;margin-top:34px}
+  .bhead{gap:14px;padding:22px 4px}
+  .bhead .tag-b{font-size:24px;width:40px}
+  .bhead h3{font-size:18px}
+  .binner{padding:4px 4px 30px;gap:22px}
+  .binner .explain q{font-size:18px}
+  .binner .explain{padding-left:18px}
+  .seg{padding:8px 0 30px 28px}.seg .vo{font-size:18px}
+  .film{margin-top:34px}
+  .budget{margin-top:34px;gap:24px}
+  .bside .big{font-size:46px}
+  .close h2{font-size:clamp(30px,9vw,46px)}
+  .close .sig{font-size:clamp(22px,6vw,32px)}
+  .master{margin-top:34px}
+}
+@media(max-width:440px){
+  .nav-links,.byline{display:none}
+  nav{padding:14px 18px}.logo{height:25px}
+  .hero h1{font-size:clamp(30px,8.4vw,44px)}
+  .metas{grid-template-columns:1fr}
+  .strip{grid-template-columns:1fr}
+  .pill{font-size:9.5px;padding:3px 6px}
+  .bhead .scope{font-size:11px;padding:4px 9px}
+  .mrow .pz small{font-size:11.5px}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<nav id="nav">
+  <a href="#top"><img class="logo" src="assets/img/logo.png" alt="Paper Mate" /></a>
+  <div class="right">
+    <div class="nav-links">
+      <a href="#idea">La idea</a>
+      <a href="#produccion">Producción IA</a>
+      <a href="#metas">Metas</a>
+      <a href="#sistema">Sistema 360°</a>
+      <a href="#bloques">Bloques</a>
+      <a href="#inversion">Inversión</a>
+    </div>
+    <span class="byline">por ARDE</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="hero-copy reveal in">
+    <span class="eyebrow">360 Content System · Propuesta de pitch</span>
+    <h1>La alegría<br>de hacerlo <em>a mano.</em></h1>
+    <p class="sub">La propuesta completa del pitch para Paper Mate LATAM: una plataforma de marca de largo plazo, producida íntegramente con inteligencia artificial dirigida por ARDE.</p>
+    <div class="meta-line">
+      <div><div class="k">Mercados</div><div class="v">México + Colombia</div></div>
+      <div><div class="k">Producción</div><div class="v">Integral con IA</div></div>
+      <div><div class="k">Categorías</div><div class="v">Bolígrafos · Gel · Youth Art</div></div>
+    </div>
+  </div>
+  <div class="hero-visual reveal in d2">
+    <div class="frame"><img src="assets/img/scene-hero.jpg" alt="Saúl · Paper Mate" /></div>
+    <div class="cap">Un universo propio: producto, manos y Saúl bajo una misma estética.</div>
+  </div>
+  <span class="note">cada trazo,<br>una decisión.</span>
+  <div class="scrollcue">SCROLL</div>
+</header>
+
+<div class="marquee" aria-hidden="true"><div class="track">
+  <span>La alegría de hacerlo a mano <span class="st">✶</span></span>
+  <span>No hay otra letra como la tuya <span class="st">✶</span></span>
+  <span>Una misma alegría, diferentes formas de hacerla a mano <span class="st">✶</span></span>
+  <span>Hecho a mano · hecho con IA <span class="st">✶</span></span>
+  <span>La alegría de hacerlo a mano <span class="st">✶</span></span>
+  <span>No hay otra letra como la tuya <span class="st">✶</span></span>
+  <span>Una misma alegría, diferentes formas de hacerla a mano <span class="st">✶</span></span>
+  <span>Hecho a mano · hecho con IA <span class="st">✶</span></span>
+</div></div>
+
+<!-- IDEA -->
+<section id="idea">
+  <div class="wrap">
+    <div class="reveal"><span class="eyebrow">El punto de partida</span></div>
+    <h2 class="reveal d1">El problema no es que no conozcan Paper Mate.<br><em>Es que no siempre la eligen.</em></h2>
+    <p class="lead reveal d2">El consumidor la reconoce, pero decide por precio, inercia o lo que recomienda el papelero. Paper Mate necesita una razón de marca para volver a ser elegida — una que una bolígrafos, gel, colores y Youth Art bajo una misma voz. Esa razón es <b>la alegría de hacerlo a mano</b>.</p>
+    <div class="note blue lg rot reveal d3" style="margin:30px 0 -8px">↳ y eso ninguna marca global lo puede traducir.</div>
+    <div class="spine">
+      <div class="step reveal"><div class="k">Tensión</div><h4>Adaptar, no traducir</h4><p>"Siente la Alegría" tiene un territorio válido, pero en LATAM no aterriza literal. Veredicto: <b>adaptar</b>.</p></div>
+      <div class="step reveal d1"><div class="k">Oportunidad</div><h4>Un lenguaje hecho a mano</h4><p>Latinoamérica ya escribe a mano en todas partes. Es nuestro, y ninguna marca global puede traducirlo.</p></div>
+      <div class="step hl reveal d2"><div class="k">Idea madre</div><h4>La alegría de hacerlo a mano</h4><p>Honra el oficio · nace del producto · se siente latina. Una sola voz, sin fragmentar el portafolio.</p></div>
+      <div class="step reveal d3"><div class="k">Verdad humana</div><h4>No hay otra letra como la tuya</h4><p>Tu letra es tu huella. Desde ahí se abre todo el sistema de mensajes y de participación.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCCION IA -->
+<section id="produccion" class="dark">
+  <div class="wrap">
+    <div class="reveal"><span class="eyebrow">Principio de producción</span></div>
+    <h2 class="reveal d1">Toda la campaña con IA.<br><em>Pero que nunca se sienta artificial.</em></h2>
+    <p class="lead reveal d2">La estética une dos mundos. La IA crea el sistema; la emoción manda. El resultado no debe parecer una colección de renders — debe sentirse como una campaña viva, humana y propia de Paper Mate.</p>
+    <div class="worlds">
+      <div class="world reveal d1"><div class="n">EL MUNDO HUMANO</div><h3>La mano es la protagonista</h3><p>Personas reales generadas con IA, manos, papelerías, escuelas, cuadernos, productos. Regla clave: no mostramos rostros completos.</p><ul><li>Manos · POV</li><li>Over shoulder</li><li>Planos detalle</li><li>Anaqueles</li></ul></div>
+      <div class="world reveal d2"><div class="n">EL MUNDO DE SAÚL</div><h3>La capa imaginativa</h3><p>Saúl entra como capa gráfica y emocional, no como personaje aparte. Representa lo que pasa en la imaginación cuando una mano empieza a crear.</p><ul><li>Trazos animados</li><li>Rótulos</li><li>Stickers</li><li>Papeles que cobran vida</li></ul></div>
+    </div>
+    <div class="rules">
+      <div class="rule reveal"><div class="num">01</div><p>La mano es el personaje principal.</p></div>
+      <div class="rule reveal d1"><div class="num">02</div><p>No hay rostros completos.</p></div>
+      <div class="rule reveal d2"><div class="num">03</div><p>Escenas humanas reales, cálidas y latinoamericanas.</p></div>
+      <div class="rule reveal d3"><div class="num">04</div><p>Saúl se integra como capa imaginativa, no aislado.</p></div>
+      <div class="rule reveal"><div class="num">05</div><p>Papelería, rótulo, cuaderno y trazo: parte del sistema visual.</p></div>
+      <div class="rule reveal d1"><div class="num">06</div><p>Producto fiel, limpio, protagonista — nunca deformado.</p></div>
+      <div class="rule reveal d2"><div class="num">07</div><p>La IA al servicio de la emoción, no del efecto.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- METAS -->
+<section id="metas">
+  <div class="wrap">
+    <div class="reveal"><span class="eyebrow">A qué apunta todo</span></div>
+    <h2 class="reveal d1">Las cinco metas del brief.<br><em>Si una pieza no apunta a una, no entra.</em></h2>
+    <div class="metas">
+      <div class="meta reveal" style="--c:var(--red)"><div class="id">M1 · Volumen</div><div class="big"><span data-count="15">0</span>%</div><div class="lbl">Recuperar ventas de bolígrafos LATAM vs. 2023</div></div>
+      <div class="meta reveal d1" style="--c:#9C2C8E"><div class="id">M2 · Top of mind</div><div class="big"><span data-count="15">0</span>→<span data-count="25">0</span></div><div class="lbl">Top of mind Gen Z 18–24 en México</div></div>
+      <div class="meta reveal d2" style="--c:var(--blue)"><div class="id">M3 · Preferencia</div><div class="big">#1</div><div class="lbl">Marca de escritura LATAM, sobre BIC, Dixon y Faber-Castell</div></div>
+      <div class="meta reveal d3" style="--c:#2E7D5B"><div class="id">M4 · Youth Art</div><div class="big">+<span data-count="86">0</span>%</div><div class="lbl">Relanzar Saúl / Youth Art (crecimiento 2025)</div></div>
+      <div class="meta reveal d4" style="--c:#3A3A66"><div class="id">M5 · Equity</div><div class="big">1</div><div class="lbl">Plataforma de largo plazo, una sola voz sin fragmentar</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SISTEMA -->
+<section id="sistema" style="background:var(--cream-2)">
+  <div class="wrap">
+    <div class="reveal"><span class="eyebrow">Cuadro maestro</span></div>
+    <h2 class="reveal d1">El sistema de despliegue 360°</h2>
+    <p class="lead reveal d2">No es una lista de piezas. Es un sistema de campaña producido con IA donde <b>cada elemento cumple un objetivo del brief</b>.</p>
+    <div class="master reveal d2">
+      <div class="mrow head"><div>#</div><div>Pieza</div><div>Objetivo — qué tiene que lograr</div><div>Meta</div></div>
+      <div class="mrow"><div class="bk">0</div><div class="pz">Fundación<small>Estrategia · plataforma · tono · sistema visual IA · reglas</small></div><div class="ob">Definir la razón de marca, la estética híbrida IA y las reglas para que todo se vea coherente.</div><div class="mt"><span class="pill M5">M5</span><span class="pill M3">M3</span></div></div>
+      <div class="mrow"><div class="bk">A</div><div class="pz">Brand Film<small>Hero 1 min + cutdowns 30/15s + cápsulas 7s · H/V/C</small></div><div class="ob">Instalar la plataforma con una película IA premium: manos reales sin rostro + estética de Saúl + cultura LATAM.</div><div class="mt"><span class="pill M3">M3</span><span class="pill M5">M5</span><span class="pill M1">M1</span><span class="pill M2">M2</span></div></div>
+      <div class="mrow"><div class="bk">B</div><div class="pz">Serie Saúl<small>8 episodios 15–20s · 16 versiones 9:16 + 1:1</small></div><div class="ob">Relanzar Youth Art como la primera alegría de hacerlo a mano, con Saúl en un universo de papelería latina.</div><div class="mt"><span class="pill M4">M4</span><span class="pill M2">M2</span></div></div>
+      <div class="mrow"><div class="bk">C</div><div class="pz">Serie de contenido<small>6 contenidos IA (uno por pilar) · 9:16 (+ 1:1)</small></div><div class="ob">Contenido producido por la marca con IA para entrar en studygram, journaling y papelería estética: real, cercano y usable.</div><div class="mt"><span class="pill M2">M2</span><span class="pill M3">M3</span></div></div>
+      <div class="mrow"><div class="bk">D</div><div class="pz">Key Visuals 4K<small>1 KV hero por categoría · LATAM · 5 KVs · 4K</small></div><div class="ob">Crear la cara visual fija por categoría de producto para social, pauta, POS y e-commerce.</div><div class="mt"><span class="pill M5">M5</span><span class="pill M1">M1</span></div></div>
+      <div class="mrow"><div class="bk">E</div><div class="pz">POS / Anaquel<small>Exhibidor + 5 estaciones "Pruébalo a mano" + materiales · ~12 × MX/CO</small></div><div class="ob">Convertir donde se decide la compra, haciendo que la plataforma se vuelva experiencia de prueba.</div><div class="mt"><span class="pill M1">M1</span></div></div>
+      <div class="mrow"><div class="bk">F</div><div class="pz">E-commerce / Pauta digital<small>Piezas estáticas por beneficio · ads multiformato + banners web · ~20 piezas</small></div><div class="ob">Resaltar el beneficio de cada producto y llevar el tráfico de pauta directo a comprar en Amazon / Mercado Libre.</div><div class="mt"><span class="pill M1">M1</span></div></div>
+      <div class="mrow"><div class="bk">G</div><div class="pz">Back to School<small>Spot BTS + kit anaquel + bundle e-commerce · 5 piezas</small></div><div class="ob">Unir todo el portafolio en el momento de mayor intención: lista, cuaderno, colores, Saúl, bolígrafos y gel.</div><div class="mt"><span class="pill M1">M1</span><span class="pill M4">M4</span></div></div>
+      <div class="mrow"><div class="bk">H</div><div class="pz">Kilométrico Colombia<small>1 video de 30s · 16:9 · 9:16 · 1:1</small></div><div class="ob">Proteger la confianza histórica de Kilométrico usando "kilómetros de tinta" como memoria emocional, no como claim funcional.</div><div class="mt"><span class="pill M1">M1</span><span class="pill M5">M5</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOQUES -->
+<section id="bloques">
+  <div class="wrap">
+    <div class="reveal"><span class="eyebrow">El detalle</span></div>
+    <h2 class="reveal d1">Cada bloque, por dentro</h2>
+    <p class="lead reveal d2">Qué es · qué debe tener · cómo explicárselo al cliente.</p>
+    <div class="blocks reveal d2" id="blocks"></div>
+  </div>
+</section>
+
+<!-- FILM -->
+<section class="dark" id="film">
+  <div class="wrap">
+    <div class="reveal"><span class="eyebrow">Brand Film · 60 segundos</span></div>
+    <h2 class="reveal d1">La pieza que une todo</h2>
+    <p class="lead reveal d2">Una película de máximo 1 minuto producida con IA: manos protagonistas, producto Paper Mate, papelerías LATAM y Saúl como capa imaginativa. <em>El trazo conecta cada escena.</em></p>
+    <div class="film">
+      <div class="seg reveal"><div class="t">0:00 – 0:08</div><h4>El valor de hacerlo a mano</h4><div class="vo">"Hay cosas que se sienten distintas cuando las haces a mano."</div><p>Planos IA reales de manos en México y Colombia: cuaderno, lista, papelería, rótulo, tarea, dibujo.</p></div>
+      <div class="seg reveal d1"><div class="t">0:08 – 0:18</div><h4>La letra propia</h4><div class="vo">"Porque tu letra no se parece a ninguna. Tus ideas tampoco."</div><p>Varias manos escriben la misma palabra; ninguna letra es igual.</p></div>
+      <div class="seg reveal d2"><div class="t">0:18 – 0:30</div><h4>Saúl entra como imaginación</h4><div class="vo">"Lo que imaginas, escribes, pintas o inventas… todo lleva algo tuyo."</div><p>Dibujo infantil, colores, Saúl dentro del papel. El trazo se vuelve puente entre el mundo real y el animado.</p></div>
+      <div class="seg reveal"><div class="t">0:30 – 0:44</div><h4>Producto como prueba de la alegría</h4><div class="vo">"Paper Mate acompaña cada trazo con suavidad, precisión, color y confianza."</div><p>Macro de bolígrafo suave, punta fina precisa, gel que no se corre, colores vivos, mano probando en anaquel.</p></div>
+      <div class="seg reveal d1"><div class="t">0:44 – 0:54</div><h4>Cultura LATAM</h4><div class="vo">"Para la lista, la firma, el apunte, la tarea, el dibujo y todo lo que empieza en tu mano."</div><p>Papelería de barrio, cartulina escrita, cuaderno marcado, rótulo, escritorio escolar, lista BTS.</p></div>
+      <div class="seg reveal d2"><div class="t">0:54 – 1:00</div><h4>Cierre de plataforma</h4><div class="vo">"Paper Mate. La alegría de hacerlo a mano."</div><p>Packshot del portafolio completo. La frase aparece escrita a mano. Saúl mira el trazo final.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section style="background:var(--cream-2)">
+  <div class="wrap">
+    <div class="reveal"><span class="eyebrow">Universo visual</span></div>
+    <h2 class="reveal d1">Un mundo propio, no stock</h2>
+    <div class="strip">
+      <figure class="reveal"><img src="assets/img/g1.jpg" alt="Back to School"><figcaption>Back to School</figcaption></figure>
+      <figure class="reveal d1"><img src="assets/img/g2.jpg" alt="Imaginar a mano"><figcaption>Imaginar a mano</figcaption></figure>
+      <figure class="reveal d2"><img src="assets/img/g3.jpg" alt="El primer día"><figcaption>El primer día</figcaption></figure>
+      <figure class="reveal d3"><img src="assets/img/g4.jpg" alt="Camino a clase"><figcaption>Camino a clase</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- INVERSION -->
+<section id="inversion">
+  <div class="wrap">
+    <div class="reveal"><span class="eyebrow">Inversión</span></div>
+    <h2 class="reveal d1">Producción dentro de <span class="under">$45K USD</span></h2>
+    <p class="lead reveal d2">El alcance completo de producción tradicional costaría 3–4×. Cabe en el presupuesto del brief gracias al pipeline de IA de ARDE — y eso responde directo al mandatorio de <b>escalabilidad con presupuesto limitado</b>.</p>
+    <div class="budget">
+      <div class="btable reveal d2">
+        <div class="brow"><div class="i">01</div><div class="nm">Estrategia + plataforma + sistema visual IA<small>Fundación · tono y voz · reglas de producción</small></div></div>
+        <div class="brow"><div class="i">02</div><div class="nm">Brand Film "Hecho a mano"<small>1 min + 30/15/7s × 3 formatos · 18 videos</small></div></div>
+        <div class="brow"><div class="i">03</div><div class="nm">Saúl 3D + serie<small>Animación 3D + 8 episodios · 16 versiones</small></div></div>
+        <div class="brow"><div class="i">04</div><div class="nm">Serie de contenido (6 pilares)<small>6 contenidos sociales · 9:16</small></div></div>
+        <div class="brow"><div class="i">05</div><div class="nm">Key Visuals 4K<small>1 KV por categoría · LATAM · 5 KVs</small></div></div>
+        <div class="brow"><div class="i">06</div><div class="nm">POS / Anaquel<small>Exhibidor + 5 estaciones + materiales · MX/CO</small></div></div>
+        <div class="brow"><div class="i">07</div><div class="nm">E-commerce / Pauta digital<small>Piezas por beneficio · ads multiformato + banners web</small></div></div>
+        <div class="brow"><div class="i">08</div><div class="nm">Back to School<small>Spot + kit de anaquel BTS</small></div></div>
+        <div class="brow"><div class="i">09</div><div class="nm">Kilométrico Colombia<small>1 video de 30s · 3 formatos</small></div></div>
+        <div class="brow total"><div class="i"></div><div class="nm">Total producción</div><div class="usd">$45,000</div></div>
+      </div>
+      <div class="bside reveal d3">
+        <div class="big">~85</div>
+        <p>piezas de producción que cubren las cinco metas del brief.</p>
+        <div class="note">
+          <b>Amplificación / medios — aparte</b>
+          El brief pone los medios como presupuesto limitado y separado. Estas piezas se cotizan como capa de pauta y activación:
+          <div class="amp"><span>OOH pintado a mano</span><span>Concurso UGC</span><span>Filtro AR</span><span>Influencers</span><span>Ads shoppable</span><span>Programa papeleros</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSE -->
+<section class="close dark">
+  <div class="wrap">
+    <div class="reveal"><span class="eyebrow" style="justify-content:center">Cierre de propuesta</span></div>
+    <h2 class="reveal d1">El 360 no es una lista de piezas. <em>Es un sistema.</em></h2>
+    <p class="lead reveal d2" style="margin:0 auto">La IA nos permite construir un universo propio: personas reales sin rostros, manos protagonistas, producto perfecto, papelerías latinoamericanas, trazos vivos, contenido escalable y Saúl como la expresión imaginativa de todo lo que empieza a mano.</p>
+    <div class="note reveal d2" style="font-size:clamp(26px,3.2vw,38px);margin-top:36px;transform:rotate(-3deg)">se hace, no se dice.</div>
+    <div class="reveal d3"><div class="sig">Paper Mate. La alegría de hacerlo a mano.</div></div>
+  </div>
+</section>
+
+<footer>
+  <img class="logo" src="assets/img/logo.png" alt="Paper Mate" />
+  <p>360 Content System · Propuesta de pitch</p>
+  <div class="ar">AI Craft. Human Vision.</div>
+  <small>Producido con IA dirigida por ARDE Agency · México + Colombia · 2026 — Confidencial</small>
+</footer>
+
+<script>
+const BLOCKS=[
+ {t:'A',h:'Brand Film "La alegría de hacerlo a mano"',qe:'La pieza ancla. Película IA de máx. 1 min.',cant:'18 videos · 16:9 · 9:16 · 1:1 · másters 4K',m:['M3','M5'],
+  tener:[{t:'1 guion madre'},{t:'Hero film 60s'},{t:'Cutdowns 30s y 15s'},{t:'Cápsulas 7s',d:'letra · trazo · color · Saúl · producto'},{t:'Formatos',d:'16:9 · 9:16 · 1:1'},{t:'Másters 4K + subtítulos para social'},{t:'Versión con y sin VO'},{t:'Versión con y sin supers de claims'},{t:'Diseño sonoro · música · color grading'},{t:'Dirección de arte IA por escena'},{t:'Consistencia de producto y de Saúl · retoque final'}],
+  ob:'Instalar la plataforma de marca y darle a Paper Mate una razón emocional y funcional para ser elegida.',
+  ex:'No vende solo un bolígrafo: muestra por qué Paper Mate importa — acompaña eso que sale de tu mano y se queda en el papel.'},
+ {t:'B',h:'Serie Saúl — "Saúl descubre lo tuyo"',qe:'8 episodios cortos con animación 3D.',cant:'8 episodios · 16 versiones (9:16 + 1:1)',m:['M4','M2'],
+  tener:[{t:'8 episodios de 15–20s'},{t:'2 formatos',d:'9:16 + 1:1 → 16 versiones'},{t:'3D premium · cálido · colorido'},{t:'Mismo universo del brand film',d:'papel, rótulos animados, trazos a mano'},{t:'Guiños MX/CO/LATAM',d:'sin disfraz folclórico'},{t:'Saúl como expresión imaginativa'}],
+  eps:['No hay otro sol como el tuyo.','No hay otro monstruo como el tuyo.','No hay otra casa como la que imaginas.','Tu nombre también se dibuja a tu manera.','Un color puede ser cielo, fuego, dragón o lo que quieras.','Cada portada empieza con algo tuyo.','Colores para imaginar sin frenos.','Dibujar, pintar, colorear, imaginar: todo empieza a mano.'],
+  ob:'Relanzar Youth Art como la puerta de entrada emocional a Paper Mate.',
+  ex:'Si no hay otra letra como la tuya, tampoco hay otro dibujo como el tuyo. Saúl no es mascota pegada: es la forma más imaginativa de contar la misma idea.'},
+ {t:'C',h:'Serie de contenido — 6 pilares IA',qe:'Contenido producido por la marca con IA para social — uno por pilar.',cant:'6 contenidos · 9:16 (+ 1:1) · TikTok · Reels · Shorts · Facebook',m:['M2','M3'],
+  tener:[{t:'1 video por pilar',d:'6 contenidos en total'},{t:'Pilar 1',d:'Tu letra dice quién eres'},{t:'Pilar 2',d:'ASMR de hacerlo a mano'},{t:'Pilar 3',d:'Antes / después de apuntes'},{t:'Pilar 4',d:'Cosas que solo se dicen a mano'},{t:'Pilar 5',d:'Con letra de aquí'},{t:'Pilar 6',d:'Prueba real de producto'}],
+  ob:'Meter a Paper Mate en conversaciones donde la gente ya habla de letra, apuntes, journaling, papelería y creatividad.',
+  ex:'Existe una comunidad enorme de studygram y journaling que habla de bolígrafos con pasión — y Paper Mate no está ahí. Estos seis contenidos producidos por la marca con IA la meten en esa conversación.'},
+ {t:'D',h:'Key Visuals 4K IA',qe:'Una imagen 4K hero por categoría de producto, para todo LATAM.',cant:'5 KVs · 1 por categoría · LATAM · 4K',m:['M5','M1'],
+  tener:[{t:'Bolígrafo'},{t:'Punto fino'},{t:'Gel'},{t:'Youth Art / Saúl'},{t:'Colores 4MM'},{t:'Alcance',d:'un solo KV por categoría para todo LATAM (mercados principales: México y Colombia)'},{t:'Formatos',d:'1:1 · 4:5 · 16:9 · 4K'},{t:'Regla',d:'no rostros · no stock · producto fiel'}],
+  ob:'Crear la cara visual fija por categoría de producto para social, pauta, POS y e-commerce.',
+  ex:'Una imagen hero por categoría de producto (bolígrafo, punto fino, gel, Youth Art, colores), una sola para todo LATAM, de nivel producción real — no moodboards de stock.'},
+ {t:'E',h:'POS / Anaquel — "Pruébalo a mano"',qe:'El sistema físico de conversión en tienda.',cant:'~12 piezas × México / Colombia',m:['M1'],
+  tener:[{t:'Exhibidor unificado por categorías'},{t:'5 estaciones "Pruébalo a mano"',d:'una por categoría — escribe tu nombre · haz una línea · pasa la mano · colorea · dibuja'},{t:'Materiales',d:'stoppers, wobblers, cenefas, cintillo de lista escolar, mini-bloc de prueba, QR al reto'},{t:'Versiones',d:'México + Colombia'}],
+  ob:'Convertir frente al anaquel y darle al papelero una razón simple para recomendar.',
+  ex:'Aquí se gana o se pierde la venta — el 70% se decide frente al anaquel. La campaña no se queda en "mira el producto": dice pruébalo a mano.'},
+ {t:'F',h:'E-commerce / Pauta digital — Piezas que llevan a comprar',qe:'Piezas estáticas para ads que dirigen directo al e-commerce, enfocadas en el beneficio del producto.',cant:'~20 piezas · feed 1:1 · story 9:16 · banners web',m:['M1'],
+  tener:[{t:'Pieza por beneficio',d:'2x más suave · seca 3x · punta Aguja · +4MM · colores vivos'},{t:'Por categoría',d:'bolígrafo · punto fino · gel · colores · Youth Art'},{t:'Formatos de pauta',d:'feed 1:1 · story / reel 9:16'},{t:'Banners web',d:'970×250 · 728×90 · 300×250 (MPU) · 320×100 (mobile)'},{t:'Banners para la web del retailer'},{t:'CTA directo a comprar',d:'link a la PDP de Amazon / Mercado Libre'},{t:'Hyperreal 4K + product lock'}],
+  ob:'Resaltar el beneficio de cada producto y llevar el tráfico de pauta directo a la compra en e-commerce.',
+  ex:'No es branding: es conversión. Cada pieza muestra un beneficio concreto — suave, preciso, sin manchas, resistente, color vivo — con un botón que lleva directo a comprar en Amazon o Mercado Libre.'},
+ {t:'G',h:'Back to School — "Este regreso, todo empieza a mano"',qe:'La activación del momento de mayor venta del año: adapta la plataforma a la temporada escolar.',cant:'Spot BTS + kit de anaquel',m:['M1','M4'],
+  tener:[{t:'Spot / video Back to School',d:'adaptación del concepto: "Este regreso, todo empieza a mano"'},{t:'Kit de anaquel BTS',d:'el POS de la temporada, conectado a la lista escolar'}],
+  ob:'Dominar el momento de mayor intención de compra con una sola voz de marca.',
+  ex:'No es una pieza más: es el momento donde se decide el grueso de la venta del año y donde todas las categorías convergen. Adaptamos la plataforma con un spot y el anaquel de la temporada — "este regreso, todo empieza a mano".'},
+ {t:'H',h:'Kilométrico Colombia — "Después de tantos kilómetros de tinta"',qe:'Una cápsula en video para Colombia que honra la memoria de Kilométrico.',cant:'1 video de 30s · 16:9 · 9:16 · 1:1',m:['M1','M5'],
+  tener:[{t:'1 video de 30 segundos'},{t:'Formatos',d:'16:9 · 9:16 · 1:1 (3 versiones)'},{t:'Estética documental',d:'manos, cuadernos, papelerías, tinta'},{t:'Línea principal',d:'"Después de tantos kilómetros de tinta, cada letra cuenta"'}],
+  ob:'Proteger confianza local y conectar la memoria de Kilométrico con la plataforma madre.',
+  ex:'No se explica una transición: se honra una memoria. Un solo video de 30 segundos, en los 3 formatos, donde "kilómetros" deja de ser duración y se vuelve historia escrita. Heredamos la confianza, no la promesa de rendimiento.'}
+];
+const cont=document.getElementById('blocks');
+BLOCKS.forEach(b=>{
+  const el=document.createElement('div');el.className='block';
+  el.innerHTML=`<div class="bhead"><div class="tag-b">${b.t}</div><div><h3>${b.h}</h3><div class="qe">${b.qe}</div>${b.cant?`<div class="scope">${b.cant}</div>`:''}</div><div class="mt">${b.m.map(x=>`<span class="pill ${x}">${x}</span>`).join('')}</div><div class="chev">+</div></div>
+  <div class="bbody"><div class="binner">
+    <div class="col"><h5>Qué debe tener</h5><ul class="tener">${b.tener.map(x=>typeof x==='string'?`<li><b>${x}</b></li>`:`<li><b>${x.t}</b>${x.d?` — ${x.d}`:''}</li>`).join('')}</ul></div>
+    <div class="col"><h5>Objetivo</h5><p>${b.ob}</p>${b.eps?`<h5 style="margin-top:26px">Los 10 episodios</h5><ol class="eps">${b.eps.map(e=>`<li>${e}</li>`).join('')}</ol>`:''}</div>
+    <div class="explain"><span>Cómo explicarlo al cliente</span><q>${b.ex}</q></div>
+  </div></div>`;
+  el.querySelector('.bhead').addEventListener('click',()=>{
+    const open=el.classList.contains('open');
+    if(open){el.classList.remove('open');el.querySelector('.bbody').style.maxHeight=null;}
+    else{el.classList.add('open');const bd=el.querySelector('.bbody');bd.style.maxHeight=bd.scrollHeight+'px';}
+  });
+  cont.appendChild(el);
+});
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(x=>io.observe(x));
+const cio=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){const el=e.target,t=+el.dataset.count;let n=0;const s=Math.max(1,Math.round(t/38));const tk=setInterval(()=>{n+=s;if(n>=t){n=t;clearInterval(tk);}el.textContent=n;},26);cio.unobserve(el);}})},{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(x=>cio.observe(x));
+const nav=document.getElementById('nav'),pr=document.getElementById('progress'),hv=document.querySelector('.hero-visual'),hn=document.querySelector('.hero .note');
+addEventListener('scroll',()=>{const sc=scrollY,h=document.body.scrollHeight-innerHeight;pr.style.width=(sc/h*100)+'%';nav.classList.toggle('scrolled',sc>40);
+  if(sc<1100){if(hv)hv.style.transform='translateY('+(sc*.06)+'px)';if(hn)hn.style.transform='rotate(-8deg) translateY('+(sc*-.04)+'px)';}
+},{passive:true});
+</script>
+</body>
+</html>
