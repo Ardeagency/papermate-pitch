@@ -404,6 +404,7 @@ footer .ar{font-family:var(--disp);font-style:italic;color:#9fc0ee;font-size:15p
     <div class="reveal"><span class="eyebrow">Principio de producción</span></div>
     <h2 class="reveal d1">Toda la campaña con IA.<br><em>Pero que nunca se sienta artificial.</em></h2>
     <p class="lead reveal d2">La estética une dos mundos. La IA crea el sistema; la emoción manda. El resultado no debe parecer una colección de renders — debe sentirse como una campaña viva, humana y propia de Paper Mate.</p>
+    <p class="lead reveal d3">Y debe sentirse espontánea. La IA es el motor, pero el alma es análoga: mezclamos técnicas tradicionales hechas a mano — trazo de marcador, lettering, recortes, collage, papel real — y las llevamos a lo digital. Esa imperfección viva es la que hace que la campaña respire y nunca se sienta de fábrica.</p>
     <div class="worlds">
       <div class="world reveal d1"><div class="n">EL MUNDO HUMANO</div><h3>La mano es la protagonista</h3><p>Personas reales generadas con IA, manos, papelerías, escuelas, cuadernos, productos. Regla clave: no mostramos rostros completos.</p><ul><li>Manos · POV</li><li>Over shoulder</li><li>Planos detalle</li><li>Anaqueles</li></ul></div>
       <div class="world reveal d2"><div class="n">EL MUNDO DE SAÚL</div><h3>La capa imaginativa</h3><p>Saúl entra como capa gráfica y emocional, no como personaje aparte. Representa lo que pasa en la imaginación cuando una mano empieza a crear.</p><ul><li>Trazos animados</li><li>Rótulos</li><li>Stickers</li><li>Papeles que cobran vida</li></ul></div>
@@ -416,6 +417,7 @@ footer .ar{font-family:var(--disp);font-style:italic;color:#9fc0ee;font-size:15p
       <div class="rule reveal"><div class="num">05</div><p>Papelería, rótulo, cuaderno y trazo: parte del sistema visual.</p></div>
       <div class="rule reveal d1"><div class="num">06</div><p>Producto fiel, limpio, protagonista — nunca deformado.</p></div>
       <div class="rule reveal d2"><div class="num">07</div><p>La IA al servicio de la emoción, no del efecto.</p></div>
+      <div class="rule reveal d3"><div class="num">08</div><p>Espontaneidad análoga: técnicas tradicionales a mano — trazo, lettering, collage, papel — llevadas a lo digital.</p></div>
     </div>
   </div>
 </section>
@@ -589,7 +591,7 @@ BLOCKS.forEach(b=>{
   <div class="bbody"><div class="binner">
     <div class="col"><h5>Qué debe tener</h5><ul class="tener">${b.tener.map(x=>typeof x==='string'?`<li><b>${x}</b></li>`:`<li><b>${x.t}</b>${x.d?` — ${x.d}`:''}</li>`).join('')}</ul></div>
     <div class="col"><h5>Objetivo</h5><p>${b.ob}</p>${b.eps?`<h5 style="margin-top:26px">Los 10 episodios</h5><ol class="eps">${b.eps.map(e=>`<li>${e}</li>`).join('')}</ol>`:''}</div>
-    <div class="explain"><span>Cómo explicarlo al cliente</span><q>${b.ex}</q></div>
+    <div class="explain"><span>Explicación</span><q>${b.ex}</q></div>
   </div></div>`;
   el.querySelector('.bhead').addEventListener('click',()=>{
     const open=el.classList.contains('open');
